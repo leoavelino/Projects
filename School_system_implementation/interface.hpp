@@ -56,7 +56,7 @@ public:
 			{
 				std::string name;
 				std::cout << "\nType the student name you wish to find: "; std::cin >> name;
-				f->find_student(name);
+				f->print_student(name);
 				break;
 			}
 			case 3:
@@ -126,6 +126,7 @@ public:
 			case 12:
 			{
 				f->list_all_registrations();
+				break;
 			}
 			case 13:
 			{
