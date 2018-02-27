@@ -91,6 +91,42 @@ public:
 				f->update_course(c);
 				break;
 			}
+			case 8:
+			{
+				std::string code;
+				std::cout << "\nType the course code you wish to remove: "; std::cin >> code;
+				f->remove_course(code);
+				break;
+			}
+			case 9:
+			{
+				std::string name, code;
+
+				std::cout << "\nType the student name you want to register for a course: "; 
+				std::cin >> name;
+				auto student = f->find_student(name);
+				if(student.name == "")
+				{
+					std::cout << "\nYou typed an invalid name.";
+					break; 
+				}
+
+				std::cout << "\nType the course code you want to register the student for: "; 
+				std::cin >> code;
+				auto course = f->find_course(code);
+				if(course.code == "")
+				{
+					std::cout << "\nYou typed an invalid code.";
+					break; 
+				}
+				Registration r(student, course);
+				f->new_registration(r);
+				break;
+			}
+			case 12:
+			{
+				f->list_all_registrations();
+			}
 			case 13:
 			{
 				f->list_all_courses();

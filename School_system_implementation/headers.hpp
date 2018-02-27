@@ -35,6 +35,14 @@ struct Registration {
 		number = n;
 		n++;
 	}
+
+	Registration(Student s, Course c) : student(s), course(c)
+	{
+		static int n = 0;
+		number = n;
+		n++;
+	}
+
 	Registration& operator=(const Registration& other)
 	{
 		this->student = other.student;
@@ -85,16 +93,19 @@ public:
 		return false;
 	}
 
-	void find_student(std::string name)
+	Student& find_student(std::string name)
 	{
 		auto it = match(name);
 		if (it != students_db.end())
 		{
 			std::cout << "Name: " << it->name << "\tAddress: " << it->address << "\tPhone: " << it->phone
-				<< "\t\tAge: "<< it->age ;
+				<< "\t\tAge: "<< it->age;
+			return *it;
 		}
 		else{
 			std::cout << "Not found.";
+			Student* s = new Student("");
+			return *s;
 		}
 	}
 
@@ -167,15 +178,18 @@ public:
 		}
 		return false;
 	}
-	void find_course(std::string code)
+	Course& find_course(std::string code)
 	{
 		auto it = match(code);
 		if (it != courses_db.end())
 		{
 			std::cout << "Code: " << it->code << "\tName: " << it->name << "\tInstructor: " << it->instructor;
+			return *it;
 		}
 		else{
 			std::cout << "Not found.";
+			Course *c = new Course("");
+			return *c;
 		}
 	}
 	void list_course()
@@ -232,7 +246,7 @@ public:
 	{
 		for(auto it = registration_db.begin(); it != registration_db.end(); it++)
 		{
-			std::cout << "\nStudent: " << it->student.name << "\tCourse: " << it->course.code;
+			std::cout << "\nStudent: " << it->student.name << "\t\tCourse: " << it->course.code;
 		}
 	}
 	void list_courses_of_student(std::string name)
@@ -310,9 +324,9 @@ public:
 			std::cout << "\nThis student does not exist.";
 		}
 	}
-	void find_student(std::string name)
+	Student& find_student(std::string name)
 	{
-		s_db->find_student(name);
+		return s_db->find_student(name);
 	}
 	void list_students()
 	{
@@ -368,9 +382,9 @@ public:
 			std::cout << "\nThis course does not exist.";
 		}
 	}
-	void find_course(std::string code)
+	Course& find_course(std::string code)
 	{
-		c_db->find_course(code);
+		return c_db->find_course(code);
 	}
 	void list_course()
 	{
@@ -459,9 +473,9 @@ public:
 	{
 		bls.remove_student(name);
 	}
-	void find_student(std::string name)
+	Student& find_student(std::string name)
 	{
-		bls.find_student(name);
+		return bls.find_student(name);
 	}
 	void list_all_students()
 	{
@@ -481,9 +495,9 @@ public:
 	{
 		blc.remove_course(code);
 	}
-	void find_course(std::string code)
+	Course& find_course(std::string code)
 	{
-		blc.find_course(code);
+		return blc.find_course(code);
 	}
 	void list_all_courses()
 	{
