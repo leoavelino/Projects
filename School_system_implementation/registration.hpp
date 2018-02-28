@@ -179,7 +179,5 @@ public:
 	{
 		r_db->list_registrations_by_type(s, type);
 	}
-
 };
-
 #endif

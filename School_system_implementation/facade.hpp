@@ -6,7 +6,6 @@
 	all the business logic blocks                        
 										 
 ******************************************/
-
 #ifndef FACADE_HPP
 #define FACADE_HPP
 
@@ -151,50 +150,5 @@ public:
 			else return true;
 		}
 	}
-	//Registration
-	// void new_registration(Registration r)
-	// {
-	// 	blr.add_new_registration(r);
-	// }
-	// void remove_registration(std::string name, std::string code)
-	// {
-	// 	blr.remove_registration(name,code);
-	// }
-	// void list_all_registrations()
-	// {
-	// 	blr.list_all_registrations();
-	// }
-	// void list_courses(std::string name)
-	// {
-	// 	if (bls.student_exists(name))
-	// 	{
-	// 		blr.list_courses_by_student(name);
-	// 	}
-	// 	else
-	// 		std::cout << "\nThis student does not exist in the database.";
-	// }
-	// void list_students(std::string code)
-	// {
-	// 	if (blc.course_exists(code))
-	// 	{
-	// 		blr.list_students_by_course(code);
-	// 	}
-	// 	else
-	// 		std::cout << "\nThis course does not exist in the database.";
-	// }
-	// void list_reg_by_type(std::string s)
-	// {
-	// 	if (bls.student_exists(s))
-	// 	{
-	// 		blr.list_reg_by_type(s, 's');
-	// 	}
-	// 	else if (blc.course_exists(s))
-	// 	{
-	// 		blr.list_reg_by_type(s, 'c');
-	// 	}
-	// 	else
-	// 		std::cout << "\nError. Not found in the database.";
-	// }
-
 };
 #endif
