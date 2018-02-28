@@ -1,3 +1,11 @@
+/*****************************************
+
+		   Interface.hpp                      
+
+	User interface for the school system                               
+										 
+******************************************/
+
 #ifndef INTERFACE_HPP
 #define INTERFACE_HPP
 
@@ -5,8 +13,10 @@
 
 class Interface
 {
+
+	public:
 	Facade *f;
-public:
+
 	Interface() : f(new Facade) {}
 	void main_menu()
 	{
@@ -49,53 +59,53 @@ public:
 			case 1:
 			{
 				Student s = new_student_routine();
-				f->new_student(s);
+				f->student_management(s,"new");
 				break;
 			}
 			case 2:
 			{
 				std::string name;
 				std::cout << "\nType the student name you wish to find: "; std::cin >> name;
-				f->print_student(name);
+				f->student_management(name,"print");
 				break;
 			}
 			case 3:
 			{
 				Student s = student_update_routine();
-				f->update_student(s);
+				f->student_management(s,"update");
 				break;
 			}
 			case 4:
 			{
 				std::string name;
 				std::cout << "\nType the student name you wish to remove: "; std::cin >> name;
-				f->remove_student(name);
+				f->student_management(name,"remove");
 				break;
 			}
 			case 5:
 			{
 				Course c = new_course_routine();
-				f->new_course(c);
+				f->course_management(c,"new");
 				break;
 			}
 			case 6:
 			{
 				std::string code;
 				std::cout << "\nType the course code you wish to find: "; std::cin >> code;
-				f->find_course(code);
+				f->course_management(code,"print");
 				break;
 			}
 			case 7:
 			{
 				Course c = course_update_routine();
-				f->update_course(c);
+				f->course_management(c,"update");
 				break;
 			}
 			case 8:
 			{
 				std::string code;
 				std::cout << "\nType the course code you wish to remove: "; std::cin >> code;
-				f->remove_course(code);
+				f->course_management(code,"remove");
 				break;
 			}
 			case 9:
@@ -104,8 +114,7 @@ public:
 
 				std::cout << "\nType the student name you want to register for a course: "; 
 				std::cin >> name;
-				auto student = f->find_student(name);
-				if(student.name == "")
+				if((f->find_db(name,"student") == false))
 				{
 					std::cout << "\nYou typed an invalid name.";
 					break; 
@@ -113,29 +122,54 @@ public:
 
 				std::cout << "\nType the course code you want to register the student for: "; 
 				std::cin >> code;
-				auto course = f->find_course(code);
-				if(course.code == "")
+				if((f->find_db(code,"course") == false))
 				{
 					std::cout << "\nYou typed an invalid code.";
 					break; 
 				}
-				Registration r(student, course);
-				f->new_registration(r);
+
+				f->registration_management(name,code,"new");
+				break;
+			}
+			case 10:
+			{
+				//to implement...
+			}
+			case 11:
+			{
+				std::string name, code;
+				std::cout << "\nType the student name: "; std::cin >> name;
+				std::cout << "\nType the course code: "; std::cin >> code;
+				f->registration_management(name, code,"remove");
 				break;
 			}
 			case 12:
 			{
-				f->list_all_registrations();
+				f->registration_management("","list_allr");
 				break;
 			}
 			case 13:
 			{
-				f->list_all_courses();
+				f->course_management("","list");
 				break;
 			}
 			case 14:
 			{
-				f->list_all_students();
+				f->student_management("","list");
+				break;
+			}
+			case 15:
+			{
+				std::string code;
+				std::cout << "Type the course code: "; std::cin >> code;
+				f->registration_management(code,"l_student_code");
+				break;
+			}
+			case 17:
+			{
+				std::string name;
+				std::cout << "Type the student name: "; std::cin >> name;
+				f->registration_management(name,"l_code_student");
 				break;
 			}
 			case 23:

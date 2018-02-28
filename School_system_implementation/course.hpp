@@ -1,3 +1,12 @@
+/*****************************************
+
+		   Course.hpp                      
+
+	Course class, Course Database class
+	and Business Logic Course class                       
+										 
+******************************************/
+
 #ifndef COURSE_HPP
 #define COURSE_HPP
 
@@ -54,13 +63,23 @@ public:
 		auto it = match(code);
 		if (it != courses_db.end())
 		{
-			std::cout << "Code: " << it->code << "\tName: " << it->name << "\tInstructor: " << it->instructor;
 			return *it;
 		}
 		else{
-			std::cout << "Not found.";
-			Course *c = new Course("");
+			Course* c = new Course("");
 			return *c;
+		}
+	}
+	void print_course(std::string code)
+	{
+		auto course = find_course(code);
+		if(course.code != "")
+		{
+			std::cout << "Code: " << course.code << "\tName: " << course.name << 
+				"\tInstructor: " << course.instructor;
+		}
+		else{
+			std::cout << "\nNot found.";
 		}
 	}
 	void list_course()
@@ -68,7 +87,7 @@ public:
 		std::cout << std::endl;
 		for(auto it = courses_db.begin(); it != courses_db.end(); it++)
 		{
-			find_course(it->code);
+			print_course(it->code);
 			std::cout << std::endl;
 		}
 	}
@@ -122,6 +141,10 @@ public:
 	Course& find_course(std::string code)
 	{
 		return c_db->find_course(code);
+	}
+	void print_course(std::string code)
+	{
+		return c_db->print_course(code);
 	}
 	void list_course()
 	{

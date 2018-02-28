@@ -1,3 +1,12 @@
+/**************************************************
+
+		   Registration.hpp                      
+
+	Registration class, Registration Database class
+	and Business Logic Registration class                       
+										 
+***************************************************/
+
 #ifndef REGISTRATION_HPP
 #define REGISTRATION_HPP
 
@@ -36,7 +45,20 @@ public:
 	{
 		registration_db.push_back(reg);
 	}
-
+	void remove_registration(std::string name, std::string code)
+	{
+		for (auto it = registration_db.begin(); it != registration_db.end(); it++)
+		{
+			if(it->student.name == name)
+			{
+				if(it->course.code == code)
+				{
+					registration_db.erase(it);
+					return;
+				}
+			}
+		}
+	}
 	bool is_enrolled(Registration reg)
 	{
 		for(auto it = registration_db.begin(); it != registration_db.end(); it++)
@@ -55,7 +77,8 @@ public:
 	{
 		for(auto it = registration_db.begin(); it != registration_db.end(); it++)
 		{
-			std::cout << "\nStudent: " << it->student.name << "\t\tCourse: " << it->course.code;
+			std::cout << "\nStudent: " << it->student.name << "\nCourse: " << it->course.code
+				<< "\nRegistration Number: "<< it->number<<std::endl;
 		}
 	}
 	void list_courses_of_student(std::string name)
@@ -78,7 +101,7 @@ public:
 			}
 		}
 	}
-	void list_registries(std::string s, char type)
+	void list_registrations_by_type(std::string s, char type)
 	{
 		for (auto it = registration_db.begin(); it != registration_db.end(); it++)
 		{
@@ -86,14 +109,16 @@ public:
 			{
 				if (it->student.name == s)
 				{
-					std::cout << "\nRegistration: " << it->number;
+					std::cout << "\nCourse: " << it->course.code
+					<< "\nRegistration Number: "<< it->number<<std::endl;
 				}
 			}
 			else if (type == 'c')
 			{
 				if (it->course.code == s)
 				{
-					std::cout << "\nRegistration: " << it->number;
+					std::cout << "\nStudent: " << it->student.name
+					<< "\nRegistration Number: "<< it->number<<std::endl;
 				}
 			}
 		}	
@@ -115,8 +140,9 @@ public:
 		r_db = std::make_unique<RegistrationDataBase>();
 	}
 
-	void add_new_registration(Registration r)
+	void add_new_registration(Student s, Course c)
 	{
+		Registration r(s,c);
 		if (r_db->is_enrolled(r) == true)
 		{
 			std::cout << "\nThe student: " << r.student.name << " is already enrolled in " << 
@@ -125,6 +151,10 @@ public:
 		}
 		else
 			r_db->new_registration(r);
+	}
+	void remove_registration(std::string name, std::string code)
+	{
+		r_db->remove_registration(name,code);
 	}
 	void list_all_registrations()
 	{
@@ -145,9 +175,9 @@ public:
 	{
 		r_db->list_students_of_course(code);
 	}
-	void list_registries(std::string s, char type)
+	void list_reg_by_type(std::string s, char type)
 	{
-		r_db->list_registries(s, type);
+		r_db->list_registrations_by_type(s, type);
 	}
 
 };

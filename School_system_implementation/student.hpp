@@ -1,3 +1,12 @@
+/*****************************************
+
+		   Student.hpp                      
+
+	Student class, Student Database class
+	and Business Logic Student class                       
+										 
+******************************************/
+
 #ifndef STUDENT_HPP
 #define STUDENT_HPP
 
@@ -8,7 +17,7 @@ struct Student {
 	int age;
 
 	Student(){}
-	Student(std::string name) : name(name) {}
+	Student(std::string name) : name(name), address(""), phone(""), age(0) {}
 	Student(std::string name, std::string address, std::string phone, int age) : 
 		name(name), address(address), phone(phone), age(age) {}
 };
